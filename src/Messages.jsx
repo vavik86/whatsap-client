@@ -43,7 +43,7 @@ const me = {
   marginLeft: '10%',
   background: '#dbf8c6',
   right: '15px',
-  '&::after': {
+  '&:after': {
     left: 'auto',
     right: '-12px',
     borderColor: '#dbf8c6 transparent transparent transparent',
@@ -54,7 +54,7 @@ const you = {
   float: 'left',
   marginRight: '10%',
   fontSize: '14px',
-  left: '15px',
+  left: '0 15px',
   'you::after': {
     left: '-12px',
     right: 'auto',
@@ -87,9 +87,12 @@ export function Messages(props) {
     {props.messages.map(message => {
       let authorId = message.author._id;
       let author = usersContext.allUsers?.[authorId];
+      let timeArr = message.date.split("T")[1].split(".")[0].split(":");
+      let time =timeArr[0]+ ":" + timeArr[1];
       return <Message key={message._id} style={message.author._id == usersContext.myUser._id ? me : you} >
         <p style={message.author._id == usersContext.myUser._id ? hide : name} > {author.userName}</p>
         <p style={msg}>{message.text}</p>
+        <p style={{right:"0", color:"gray", fontSize:"12px", margin:"0"}}>{time}</p>
       </Message>;
     })}
   </ul>;
