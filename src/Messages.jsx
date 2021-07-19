@@ -4,7 +4,6 @@ import styled from 'styled-components/macro';
 import { UsersContext } from './UsersContext';
 
 let Message = styled.div({
-  border: '1px solid',
   padding: '0.5em',
   lineHeight: '22px',
   padding: '15px',
@@ -14,14 +13,17 @@ let Message = styled.div({
   clear: 'both',
   minWidth: '50px',
   position: 'relative',
-  '&::after': {
-    content: " ",
+  "&:after": {
+    content: '',
     position: 'absolute',
+    top: '0',
+    left: '-15px',
     width: '0',
     height: '0',
-    top: '0',
-    bottom: 'auto',
-    border: '22px solid'
+    border: '20px solid transparent',
+    borderTopColor: '#fff',
+    borderBottom: '0',
+    borderRight: '0'
   }
 });
 
@@ -30,14 +32,6 @@ const msg = {
   fontSize: '15px',
   margin: '3px 10px'
 };
-const time = {
-  position: 'absolute',
-  bottom: '5px',
-  right: '10px',
-  color: '#00000073',
-  fontSize: '11px',
-};
-
 const me = {
   float: 'right',
   marginLeft: '10%',
@@ -88,11 +82,11 @@ export function Messages(props) {
       let authorId = message.author._id;
       let author = usersContext.allUsers?.[authorId];
       let timeArr = message.date.split("T")[1].split(".")[0].split(":");
-      let time =timeArr[0]+ ":" + timeArr[1];
+      let time = timeArr[0] + ":" + timeArr[1];
       return <Message key={message._id} style={message.author._id == usersContext.myUser._id ? me : you} >
         <p style={message.author._id == usersContext.myUser._id ? hide : name} > {author.userName}</p>
         <p style={msg}>{message.text}</p>
-        <p style={{right:"0", color:"gray", fontSize:"12px", margin:"0"}}>{time}</p>
+        <p style={{ right: "0", color: "gray", fontSize: "12px", margin: "0" }}>{time}</p>
       </Message>;
     })}
   </ul>;
