@@ -64,10 +64,10 @@ const you = {
 const name = {
   fontWeight: '500',
   color: '#36cd96',
-  marginTop:'0'
+  marginTop: '0'
 };
-const hide={
-  display:'none'
+const hide = {
+  display: 'none'
 };
 const ChatSection = {
   flex: '1',
@@ -86,11 +86,9 @@ export function Messages(props) {
   return <ul style={ChatSection}>
     {props.messages.map(message => {
       let authorId = message.author._id;
-      let authorName = usersContext.allUsers?.[authorId];
+      let author = usersContext.allUsers?.[authorId];
       return <Message key={message._id} style={message.author._id == usersContext.myUser._id ? me : you} >
-        {/* <p>chatId: {message.chat}</p> */}
-        {/* <p>messageId: {message._id}</p> */}
-        <p style={message.author._id == usersContext.myUser._id ? hide : name} > {authorName}</p>
+        <p style={message.author._id == usersContext.myUser._id ? hide : name} > {author.userName}</p>
         <p style={msg}>{message.text}</p>
       </Message>;
     })}
